@@ -1,0 +1,30 @@
+# @routeName = student               // route main name
+# @host = http://localhost:8082/     // http host name
+
+# GET {{host}}{{routeName}}/all HTTP/1.1
+
+# ###
+# GET {{host}}{{routeName}}/details/2 HTTP/1.1
+
+# ###
+# POST {{host}}{{routeName}}/delete/4 HTTP/1.1
+# content-type: application/json
+
+# ###
+# POST {{host}}{{routeName}}/store HTTP/1.1
+# content-type: application/json
+
+# {
+#         "name": "Yamin",
+#         "roll": "5",
+#         "subject": "Engineer"
+# }
+
+# ###
+# POST {{host}}{{routeName}}/update/1 HTTP/1.1
+# content-type: application/json
+# {
+#         "name": "mozammel hossain",
+#         "roll": "2",
+#         "subject": "Engineer"
+# }

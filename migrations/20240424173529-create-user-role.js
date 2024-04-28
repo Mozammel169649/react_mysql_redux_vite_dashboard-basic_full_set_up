@@ -24,12 +24,12 @@ module.exports = {
         }
       },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        default : new Date()
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        default : new Date()
       }
     });
   },

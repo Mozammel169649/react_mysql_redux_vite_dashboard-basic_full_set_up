@@ -1,0 +1,25 @@
+@routeName = product            
+@host = http://127.0.0.1:50009/
+
+GET {{host}}{{routeName}}/all HTTP/1.1 
+
+###
+GET {{host}}{{routeName}}/singleData/2 HTTP/1.1
+
+
+###
+POST {{host}}{{routeName}}/create HTTP/1.1
+content-type: application/json
+{
+        "name": "Yamin",
+        "email": "dklsfjdklsj"
+}
+
+# ###
+# POST {{host}}{{routeName}}/update/1 HTTP/1.1
+# content-type: application/json
+# {
+#         "name": "mozammel hossain",
+#         "roll": "2",
+#         "subject": "Engineer"
+# }

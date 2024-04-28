@@ -32,6 +32,34 @@ function Sidebar() {
                             <span>Users</span>
                         </Link>
                     </li>
+                    <li>
+                        {" "}
+                        <Link to="product" className='sidebar-header'>
+                            <i className="bx bx-radio-circle" />
+                            <span>Product</span>
+                        </Link>
+                    </li>
+                    <li>
+                        {" "}
+                        <Link to="role" className='sidebar-header'>
+                            <i className="bx bx-radio-circle" />
+                            <span>Role</span>
+                        </Link>
+                    </li>
+                    <li>
+                        {" "}
+                        <Link to="supplier" className='sidebar-header'>
+                            <i className="bx bx-radio-circle" />
+                            <span>Supplier</span>
+                        </Link>
+                    </li>
+                    <li>
+                        {" "}
+                        <Link to="category" className='sidebar-header'>
+                            <i className="bx bx-radio-circle" />
+                            <span>Category</span>
+                        </Link>
+                    </li>
                 </ul>
                 <div className="sidebar-widget text-center">
                     <div className="sidebar-widget-top">

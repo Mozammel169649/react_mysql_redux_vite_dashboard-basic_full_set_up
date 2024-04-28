@@ -5,6 +5,10 @@ const path = require('path');
 const {Sequelize ,DataTypes} = require('sequelize');
 const process = require('process');
 const user = require('./user');
+const product = require('./products');
+const role = require('./role');
+const category = require('./categorys');
+const supplier = require('./suppliers');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -41,6 +45,10 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.user = user(sequelize, DataTypes)
+db.users = user(sequelize, DataTypes)
+db.products = product(sequelize, DataTypes)
+db.roles = role(sequelize, DataTypes)
+db.categorys = category (sequelize, DataTypes)
+db.suppliers = supplier (sequelize, DataTypes)
 
 module.exports = db;

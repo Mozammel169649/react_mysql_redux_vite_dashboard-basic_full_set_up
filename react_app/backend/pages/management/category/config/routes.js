@@ -2,7 +2,7 @@ import Layoute from "../Layout"
 import All from "../pages/All"
 import Create from "../pages/Create"
 import Edit from "../pages/Edit"
-import View from "../pages/view"
+import View from "../pages/View"
 import setup from "./setup"
 
 const {route_prefix} = setup

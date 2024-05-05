@@ -9,6 +9,20 @@ export const get_all_supplier = createAsyncThunk(
         const res = await axios.get(`/${pathName}/all`);
         return res.data;
     });
+export const get_count_supplier = createAsyncThunk(
+    "suppliers/get_count_supplier",
+    async (params, thunkAPI) => {
+        const res = await axios.get(`/${pathName}/count`);
+        return res.data;
+    });
+export const get_paginate_supplier = createAsyncThunk(
+    "suppliers/get_paginate_supplier",
+    async (params, thunkAPI) => {
+        console.log("ferererter", params);
+        const res = await axios.get(`/${pathName}?page=${params?.page}&limit=${params?.limit}`);
+        // console.log(res.data);
+        return res.data;
+    });
 export const get_single_supplier = createAsyncThunk(
     "suppliers/get_single_supplier",
     async (params, thunkAPI) => {
@@ -32,7 +46,7 @@ export const update_supplier = createAsyncThunk(
 export const create_supplier = createAsyncThunk(
     "suppliers/create_supplier",
     async (formData, thunkAPI) => {
-        const res = await axios.post(`/${pathName}/create`,formData);
+        const res = await axios.post(`/${pathName}/create`, formData);
         return res.data;
     });
 
@@ -41,18 +55,28 @@ const supplierSlice = createSlice({
     name: 'suppliers',
     initialState: {
         suppliers: [],
-        singleSupplier: {}
+        singleSupplier: {},
+        paginateData: [],
+        count : 0,
     },
-   
+
     extraReducers: (builder) => {
         builder
             .addCase(get_all_supplier.fulfilled, (state, action) => {
                 state.suppliers = action.payload;
                 console.log("get all suppliers successfully")
             })
+            .addCase(get_count_supplier.fulfilled, (state, action) => {
+                state.count = action.payload;
+                console.log("get count suppliers successfully")
+            })
             .addCase(get_single_supplier.fulfilled, (state, action) => {
                 state.singleSupplier = action.payload;
                 console.log("set single supplier successfully")
+            })
+            .addCase(get_paginate_supplier.fulfilled, (state, action) => {
+                state.paginateData = action.payload;
+                console.log("set paginate_supplier successfully")
             })
             .addCase(update_supplier.fulfilled, (state, action) => {
                 console.log("supplier update successfully")

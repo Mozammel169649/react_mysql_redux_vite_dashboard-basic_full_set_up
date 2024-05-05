@@ -1,35 +1,37 @@
-
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import setup from '../config/setup';
-import { delete_supplier, get_all_supplier } from '../../../../redux/features/supplier/supplierSlice';
+import { delete_supplier, get_all_supplier, get_count_supplier, get_paginate_supplier } from '../../../../redux/features/supplier/supplierSlice';
 import Pagination from '../../../Pagination';
 
 function All() {
 
   const dispatch = useDispatch();
-  const supplier = useSelector(state => state.suppliers.suppliers);
+  const paginateSupplier = useSelector(state => state.suppliers.paginateData);
+  const supplierCount = useSelector(state => state.suppliers.count);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
-  useEffect(() => {
-    dispatch(get_all_supplier());
+  const handlePageChange = async(newPage) => {
+    setCurrentPage(newPage)
+    dispatch(get_paginate_supplier({page:newPage, limit:itemsPerPage}));
+  };
+ 
+  useEffect(async() => {
+    dispatch(get_count_supplier());
+    dispatch(get_paginate_supplier({page:currentPage, limit:itemsPerPage}));
   }, []);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, settemsPerPage] = useState(3);
-  const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
-  const indexOfLastItem = indexOfFirstItem + itemsPerPage;
-  const currentItems = supplier.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(supplier.length / itemsPerPage);
-  
-  const handleSelectChange = (event) => {
+  const totalPages = Math.ceil(supplierCount / itemsPerPage);
+  const handleSelectChange =async (event) => {
     const selectedValue = parseInt(event.target.value);
-    settemsPerPage(selectedValue);
+    setItemsPerPage(selectedValue);
+    dispatch(get_paginate_supplier({page:currentPage, limit:selectedValue}));
   };
-
   const deleteData = async (id) => {
-    await dispatch(delete_supplier(id));
-    await dispatch(get_all_supplier());
+    dispatch(delete_supplier(id));
+    dispatch(get_all_supplier());
   }
 
   return (
@@ -62,8 +64,8 @@ function All() {
           </thead>
           <tbody>
             {
-              currentItems.length &&
-              currentItems?.map(ele =>
+              paginateSupplier.length &&
+              paginateSupplier?.map(ele =>
                 <tr>
                   <td>{ele?.name}</td>
                   <td>{ele?.email}</td>
@@ -83,7 +85,7 @@ function All() {
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={handlePageChange}
         />
       </div>
 

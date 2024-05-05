@@ -1,38 +1,50 @@
 import React from 'react';
 
-const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+const Pagination = (
+  { totalPages,
+  currentPage,
+  setCurrentPage }) => {
+
+  var crt = currentPage;
+  var totalePag = totalPages;
+  // var totalePag = totalPages + 10;
+  const handlePrevious = (event) => {
+    if (crt > 1) {
+      crt = crt - 1
+      setCurrentPage(crt)
+    } else setCurrentPage(crt)
   };
 
   const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (crt < totalePag) {
+      crt = crt + 1
+      setCurrentPage(crt)
+    } else setCurrentPage(crt)
+  };
+
+  const curtPage = (index) => {
+    crt = index
+    setCurrentPage(crt)
   };
 
   return (
     <div>
-      <button onClick={handlePrevious} disabled={currentPage === 1}>
-        Previous
-      </button>
-
-      {/* Display page numbers for quick navigation */}
-      {Array.from({ length: totalPages }, (_, index) => (
-        <button
-          key={index}
-          onClick={() => setCurrentPage(index + 1)}
-          disabled={currentPage === index + 1}
-        >
-          {index + 1}
-        </button>
-      ))}
-
-      <button onClick={handleNext} disabled={currentPage === totalPages}>
-        Next
-      </button>
+      <nav aria-label="Page navigation example">
+        <ul className="pagination">
+          <li   onClick={handlePrevious} className="page-item"><a className="page-link">Previous</a></li>
+          {Array.from({ length: totalePag }, (_, index) =>
+        (
+          <li className='page-item'
+            key={index}
+            onClick={async () => await curtPage(index + 1)}
+          >
+            <a className="page-link">{index + 1}</a>
+          </li>
+        )
+        )}
+          <li onClick={handleNext} className="page-item"><a className="page-link">Next</a></li>
+        </ul>
+      </nav>
     </div>
   );
 };

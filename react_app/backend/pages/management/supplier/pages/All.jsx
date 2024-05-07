@@ -8,8 +8,9 @@ import Pagination from '../../../Pagination';
 function All() {
 
   const dispatch = useDispatch();
+  
   const paginateSupplier = useSelector(state => state.suppliers.paginateData);
-  const supplierCount = useSelector(state => state.suppliers.count);
+  const supplierCount = useSelector(state => state.suppliers.count);  
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(3);
 
@@ -27,7 +28,7 @@ function All() {
   const handleSelectChange =async (event) => {
     const selectedValue = parseInt(event.target.value);
     setItemsPerPage(selectedValue);
-    dispatch(get_paginate_supplier({page:currentPage, limit:selectedValue}));
+    dispatch(get_paginate_supplier({page:1, limit:selectedValue}));
   };
   const deleteData = async (id) => {
     dispatch(delete_supplier(id));
